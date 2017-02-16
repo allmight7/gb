@@ -1,0 +1,134 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+
+<form name="f">
+<div class="container-fluid" id="buy_content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="col-md-6">
+				<img id="img1" alt="${product.p_name }" src="images/p_images/${product.p_url }">
+			</div>
+			<div class="col-md-6">
+			<h2>${product.p_name }</h2>
+					<h3><p><strong>가격 : </strong>${product.p_price }</p></h3>
+					
+				
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<h4>이메일을 입력해 주세요</h4>
+			<hr>
+				<h5>구매 하시는분</h5>
+			이름 <input type="text" value="${m_id}">			
+			이메일주소 <input type="text" value="${m_email}">
+			<span class="help block">이메일주소 변경시에도 회원정보에 반영되지 않습니다.</span>			
+			<hr>
+				<h5>사용 하시는분</h5>
+			이름 <input type="text" id="m_name" value="" >			
+			이메일주소 <input type="text" id="m_email" value="">	
+			수량 <select id="p_count">
+					<option value="0">0</option>
+					<option value="1" selected="selected">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+				<input type="button" value="초기화">
+			<hr>
+			<div class="buy">
+				<h5>현재 보유중인 포인트 : </h5><span id="point">${member.m_point}</span></br>
+				사용할 포인트 입력 <input id="use_point"  type="text" value="" style="text-align: right">point</br>
+				상품 총 금액 <input id="p_tot" type="text" style="text-align: right" > - 할인금액 <input id="disCount" type="text" value="0"  style="text-align: right" > = 최종금액 
+				<input id="total" type="text" style="text-align: right" value=""> 원</br></br>
+			</div>
+				<h5>이용안내</h5>
+					<ul>
+						<li>최대 5명에게 발송할 수 있습니다.</li>
+						<li>상품은 모든 극장에서 사용가능합니다. 결제 확인 및 취소는 이메일에서 확인 가능합니다.</li>
+						
+					</ul>
+				<button id="button" type="button" class="btn btn-primary btn-lg pull-right" onclick="buyAction(${product.p_no })"><strong>구매하기</a></strong></button>
+				
+		</div>
+	</div>
+</div>
+</form>
+
+<script>
+
+//처음 가격세팅
+$(function(){
+	$('#p_tot').val(${product.p_price}).val();
+});
+
+//수량바뀌면 가격 업뎃
+$('#p_count').change(function(){
+	$('#p_tot').val(${product.p_price} * $('#p_count').val());
+});
+
+
+//총 가격 처음 세팅
+$(function(){
+	$('#total').val(${product.p_price} * $('#p_count').val());
+});
+
+//수량변하면 총가격 업뎃
+$('#p_count').change(function(){
+	$('#total').val(${product.p_price} * $('#p_count').val());
+});
+
+
+//포인트 값에 따라 최종가격 업뎃
+$('#use_point').change(function(){
+	//alert($('#use_point'));
+	$('#disCount').val($('#use_point').val());
+	
+	if($('#use_point').val() > ${member.m_point}){
+		alert('포인트가 부족합니다.');
+		$('#disCount').val(0);
+	}
+	$('#total').val($('#p_tot').val() - $('#disCount').val());
+
+});
+
+
+
+
+/* 
+$('#button').click(function(){
+	alert('구매완료. 구매목록으로 이동합니다');
+});
+
+ */
+ 
+ 
+$('');
+
+ 
+ 
+ function buyAction(p_no){
+	
+	alert(p_no);
+	  $.ajax({
+		 type:"get",
+		 url:"buy_action?p_no="+p_no,
+		 success:function(data){
+			 $('#buy_content').html('');
+			 $('#buy_content').html(data);
+		 }
+	 }); 
+	  
+	 
+ }; 
+ 
+ 
+
+</script>
+
+    

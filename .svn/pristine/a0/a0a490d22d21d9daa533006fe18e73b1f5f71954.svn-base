@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.Seen_movieMapper">
+	<resultMap id="SeenMovieResult" type="com.itwill.giga_box.seen_movie.Seen_movie" >
+		<id property="seen_no" column="seen_no"/>
+		<result property="m_id" column="m_id"/>
+		<result property="movie_no" column="movie_no"/>
+	</resultMap>
+	<resultMap id="SeenMovieWithThumbResult" type="com.itwill.giga_box.movie.Movie" >
+		<id property="movie_no" column="movie_no"/>
+		<result property="movie_name" column="movie_name"/>
+		<result property="thumbnail" column="thumbnail"/>
+	</resultMap>
+	
+	
+	<insert id="insertSeenMovie" parameterType="com.itwill.giga_box.seen_movie.Seen_movie">
+		INSERT INTO 
+		SEEN_MOVIE(SEEN_NO, M_ID, MOVIE_NO)
+		VALUES(#{seen_no},#{m_id},#{movie_no})
+	</insert>
+	
+	<select id="selectByMemberId" resultMap="SeenMovieResult" parameterType="java.lang.String">
+		SELECT *
+		FROM SEEN_MOVIE
+		WHERE M_ID = #{m_id}
+	</select>
+	<select 
+	id="selectWithMovieByMemberId" 
+	resultMap="SeenMovieWithThumbResult" 
+	parameterType="java.lang.String">
+		SELECT MOVIE_NO, MOVIE_NAME, STILLCUT.S_IMAGE AS THUMBNAIL
+		FROM MOVIE
+		NATURAL JOIN STILLCUT
+		WHERE MOVIE_NO IN(
+		                  SELECT sm.MOVIE_NO
+		                  FROM SEEN_MOVIE sm 
+		                  LEFT OUTER JOIN MOVIE m 
+		                  ON sm.MOVIE_NO = m.MOVIE_NO 
+		                  WHERE M_ID = #{m_id}
+		                  )
+		AND STILLCUT.S_THUMB = 'Y'
+	</select>
+		
+	
+</mapper>
+

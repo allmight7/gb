@@ -1,0 +1,14 @@
+package com.itwill.giga_box.mapper;
+
+import java.util.List;
+
+import com.itwill.giga_box.movie.Movie;
+
+public interface MovieMapper {
+	public Movie selectByNo(int no);
+	public List<Movie> selectAll();
+	public int insert(Movie movie);
+	public int update(Movie movie);
+	public int deleteByNo(int no);
+	public Movie selectMSMPByNo(int movie_no);
+}

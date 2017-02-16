@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.itwill.giga_box.mapper.MemberMapper">
+
+	<resultMap type="com.itwill.giga_box.member.Member" id="memberResultMap">
+		<id property="m_id" column="m_id"/>
+		<result property="m_no" column="m_no"/>
+		<result property="m_pw" column="m_pw"/>
+		<result property="m_name" column="m_name"/>
+		<result property="m_gender" column="m_gender"/>
+		<result property="m_birth" column="m_birth"/>
+		<result property="m_zipcode" column="m_zipcode"/>
+		<result property="m_addr" column="m_addr"/>
+		<result property="m_email" column="m_email"/>
+		<result property="m_phone" column="m_phone"/>
+		<result property="m_img" column="m_img"/>
+		<result property="m_grade" column="m_grade"/>
+		<result property="m_point" column="m_point"/>
+	</resultMap>
+
+	<insert id="insertMember" parameterType="com.itwill.giga_box.member.Member">
+		
+		<!-- <selectKey keyProperty="m_no" resultType="int" order="BEFORE">
+			SELECT M_NO_SEQ.nextval FROM DUAL
+		</selectKey>
+		 -->
+		INSERT INTO MEMBER(M_NO,M_ID,M_PW,M_NAME,M_GENDER,M_BIRTH,M_ZIPCODE,M_ADDR,M_EMAIL,M_PHONE,M_IMG,M_GRADE,M_POINT)
+		VALUES(#{m_no},#{m_id},#{m_pw},#{m_name},#{m_gender},#{m_birth},#{m_zipcode},#{m_addr},#{m_email},#{m_phone},#{m_img},#{m_grade},#{m_point})
+	</insert>
+	<select id="findByMemberId" parameterType="com.itwill.giga_box.member.Member" resultType="com.itwill.giga_box.member.Member">
+		SELECT * FROM MEMBER WHERE M_ID = #{m_id}
+	</select>
+	<select id="findAllMembers" parameterType="com.itwill.giga_box.member.Member" resultType="com.itwill.giga_box.member.Member">
+		SELECT * FROM MEMBER
+	</select>
+	<update id="updateMember">
+		UPDATE MEMBER
+		SET M_NO = #{m_no},
+			M_PW = #{m_pw},
+			M_NAME = #{m_name},
+			M_GENDER = #{m_gender},
+			M_BIRTH = #{m_birth},
+			M_ZIPCODE = #{m_zipcode},
+			M_ADDR = #{m_addr},
+			M_EMAIL = #{m_email},
+			M_PHONE = #{m_phone},
+			M_IMG = #{m_img},
+			M_GRADE = #{m_grade},
+			M_POINT = #{m_point}
+		WHERE M_ID = #{m_id}
+	</update>
+	<delete id="deleteMember">
+		DELETE MEMBER WHERE M_ID = #{m_id}
+	</delete>
+</mapper>

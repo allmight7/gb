@@ -1,0 +1,40 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+
+
+  <div id="buyModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						            <div class="modal-dialog modal-lg">
+						                <div class="modal-content">
+						
+						                    <div class="modal-header">
+						                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						                            <span aria-hidden="true">&times;</span>
+						                        </button>
+						                        <h4 class="modal-title" id="myModalLabel"></h4>
+						                    </div>
+						                    <div class="modal-body">
+											<!-- modal이 뿌려지게될 body부분 -->
+											
+						                   </div>
+						                </div><!-- /.modal-content -->
+						            </div><!-- /.modal-dialog -->
+						        </div><!-- /.modal -->  
+
+<script type="text/javascript">
+	/* function loadBuyView(buy_no){
+		alert('dddd');
+		$.ajax({
+			type:"GET",
+			url:"buy_view?buy_no="+buy_no,
+			success:function(data){
+				$('.modal-body').html('');  //초기화
+				$('.modal-body').html(data);
+				$('#buyModal');
+			}
+		});
+		
+	} */
+
+</script>

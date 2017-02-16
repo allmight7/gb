@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.MovieMapper">
+	<resultMap id="MovieResult" type="com.itwill.giga_box.movie.Movie">
+		<id property="movie_no" column="movie_no"/>
+		<result property="movie_name" column="movie_name"/>
+		<result property="movie_date" column="movie_date"/>
+		<result property="movie_time" column="movie_time"/>
+		<result property="movie_rate" column="movie_rate"/>
+		<result property="movie_people" column="movie_people"/>
+		<result property="movie_director" column="movie_director"/>
+		<result property="movie_actor" column="movie_actor"/>
+		<result property="movie_summary" column="movie_summary"/>
+		<result property="movie_trailer" column="movie_trailer"/>
+	</resultMap>
+	<resultMap id="MovieWithStillcutResult" type="com.itwill.giga_box.movie.Movie">
+		<id property="movie_no" column="movie_no"/>
+		<result property="movie_name" column="movie_name"/>
+		<result property="movie_date" column="movie_date"/>
+		<result property="movie_time" column="movie_time"/>
+		<result property="movie_rate" column="movie_rate"/>
+		<result property="movie_people" column="movie_people"/>
+		<result property="movie_director" column="movie_director"/>
+		<result property="movie_actor" column="movie_actor"/>
+		<result property="movie_summary" column="movie_summary"/>
+		<result property="movie_trailer" column="movie_trailer"/>
+		<collection property="stillcutList" resultMap="com.itwill.giga_box.mapper.StillcutMapper.StillcutResult"/>
+	</resultMap>
+	
+	<select id="selectByNo" resultMap="MovieWithStillcutResult" parameterType="int">
+		SELECT *
+		FROM MOVIE
+		LEFT OUTER JOIN STILLCUT
+		ON MOVIE.MOVIE_NO = STILLCUT.MOVIE_NO
+		WHERE MOVIE.MOVIE_NO = #{movie_no}
+	</select>
+	
+	<select id="selectAll" resultMap="MovieWithStillcutResult">
+		SELECT * 
+		FROM MOVIE
+		LEFT OUTER JOIN STILLCUT
+		ON MOVIE.MOVIE_NO = STILLCUT.MOVIE_NO
+		WHERE STILLCUT.S_THUMB='Y'
+	</select>
+	
+	<insert id="insert" parameterType="com.itwill.giga_box.movie.Movie">
+		INSERT INTO MOVIE 
+		VALUES(
+		#{movie_no},#{movie_name},#{movie_date},
+		#{movie_time},#{movie_rate},#{movie_people},
+		#{movie_director},#{movie_actor},#{movie_summary},#{movie_trailer}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE MOVIE
+		SET 
+		MOVIE_NAME = #{movie_name}, MOVIE_DATE = #{movie_date}, MOVIE_TIME = #{movie_time}, 
+		MOVIE_RATE = #{movie_rate}, MOVIE_PEOPLE = #{movie_people}, MOVIE_DIRECTOR = #{movie_director}, 
+		MOVIE_ACTOR = #{movie_actor}, MOVIE_SUMMARY = #{movie_summary}, MOVIE_TRAILER = #{movie_trailer}
+		WHERE MOVIE_NO = #{movie_no}
+	</update>
+	
+	<delete id="deleteByNo" parameterType="java.lang.Integer">
+		DELETE FROM MOVIE
+		WHERE MOVIE_NO = #{movie_no}
+	</delete>
+</mapper>

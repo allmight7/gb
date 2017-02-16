@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.MultiplexMapper">
+
+
+	<resultMap id="MultiplexResult" type="com.itwill.giga_box.multiplex.Multiplex" >
+		<id property="mp_no" column="mp_no"/>
+		<result property="mp_name" column="mp_name"/>
+		<result property="mp_type" column="mp_type"/>
+		<result property="mp_city" column="mp_city"/>
+		<result property="mp_cinema" column="mp_cinema"/>
+		<result property="mp_seats" column="mp_seats"/>
+	</resultMap>
+	
+	<insert id="insertMp" parameterType="com.itwill.giga_box.multiplex.Multiplex">
+		INSERT INTO MULTIPLEX (mp_no,mp_name,mp_type,mp_city,mp_cinema,mp_seats)
+		VALUES (#{mp_no},#{mp_name},#{mp_type},#{mp_city},#{mp_cinema},#{mp_seats})
+	</insert>
+	
+	<select id="selectByMpNo" parameterType="com.itwill.giga_box.multiplex.Multiplex" resultType="com.itwill.giga_box.multiplex.Multiplex">
+		SELECT * FROM MULTIPLEX WHERE MP_NO = #{mp_no}
+	</select>
+	<select id="selectAllMp" parameterType="com.itwill.giga_box.multiplex.Multiplex" resultType="com.itwill.giga_box.multiplex.Multiplex">
+		SELECT * FROM MULTIPLEX
+	</select>
+	<update id="updateMp" parameterType="com.itwill.giga_box.multiplex.Multiplex">
+		UPDATE MULTIPLEX
+		SET	MP_NAME = #{mp_name},
+			MP_TYPE = #{mp_type},
+			MP_CITY = #{mp_city},
+			MP_CINEMA = #{mp_cinema},
+			MP_SEATS = #{mp_seats}
+		WHERE MP_NO = #{mp_no}
+	</update>
+	<delete id="deleteMp">
+		DELETE MULTIPLEX WHERE MP_NO = #{mp_no}
+	</delete>
+
+</mapper>
+

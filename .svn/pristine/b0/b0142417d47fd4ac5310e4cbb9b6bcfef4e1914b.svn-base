@@ -1,0 +1,55 @@
+package com.itwill.giga_box.controller;
+
+import java.sql.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.itwill.giga_box.buy.Buy;
+import com.itwill.giga_box.buy.BuyService;
+import com.itwill.giga_box.product.Product;
+import com.itwill.giga_box.product.ProductService;
+
+@Controller
+public class BuyController {
+
+	@Autowired
+	private BuyService buyService;
+	@Autowired
+	private ProductService productService;
+	@RequestMapping("/buy_list")
+	public String buyList(@RequestParam String m_id, Model model){
+		
+		List<Buy> buyList = buyService.selectAll(m_id);
+		model.addAttribute("buyList", buyList);
+		System.out.println(buyList);
+		return "buy/buy_list";
+	}
+	
+	/*@RequestMapping("/buy_action")
+	public String buyView(@RequestParam int buy_no,
+						  @RequestParam Date buy_date,
+						  @RequestParam int buy_count,
+						  @RequestParam int buy_point,
+						  @RequestParam String m_id,
+						  @RequestParam int p_no, Model model){
+		
+		int buy = buyService.insert(new Buy(buy_no, buy_date, buy_count, buy_point, m_id, p_no));
+		model.addAttribute("buy", buy);
+		return "buy/buy_action";
+	}*/
+	@RequestMapping("/buy_view")
+	public String buyViewByNo(@RequestParam int p_no, Model model){
+		System.out.println(p_no);
+		Product product = productService.findProductByNo(p_no);
+		System.out.println("--------------------------------------------------------");
+		System.out.println(">>>>>>>"+product);
+		model.addAttribute("product",product );
+		return "buy/buy_view";
+	}
+	
+}

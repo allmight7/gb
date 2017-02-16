@@ -1,0 +1,44 @@
+package com.itwill.giga_box.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.itwill.giga_box.product.Product;
+import com.itwill.giga_box.product.ProductService;
+
+@Controller
+public class ProductController {
+
+	@Autowired
+	ProductService productService;
+	@RequestMapping("/product_list")
+    public String productSelect(HttpServletRequest request, @RequestParam(value="p_type",required=false) int p_type, Model model) {
+			
+		int pType = p_type; 
+		if (p_type==0) {
+			pType=1;
+			List<Product> proList= productService.findProductByType(p_type);
+			model.addAttribute("proList",proList );
+		}else {
+			List<Product> proList= productService.findProductByType(p_type);
+
+		}
+		String contextPath = request.getContextPath();
+		System.out.println(contextPath);
+		List<Product> proList= productService.findProductByType(p_type);
+			model.addAttribute("proList",proList );
+			model.addAttribute("contextPath",contextPath);
+	  
+        return "product/product_list";
+    }
+	
+}
+	
+

@@ -1,0 +1,30 @@
+package com.itwill.giga_box.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.itwill.giga_box.movie.Movie;
+import com.itwill.giga_box.movie.MovieService;
+
+@Controller
+public class MainController {
+	@Autowired
+	MovieService movieService;
+    @RequestMapping({"/index","/"})
+    public String index(Model model) {
+    	List<Movie> movieList = movieService.selectAll();
+		model.addAttribute("movieList", movieList);
+		System.out.println(movieList);
+        return "main/index";
+    }
+    
+    @RequestMapping({"/template"})
+    public String template() {
+    	return "template/template";
+    }
+
+}

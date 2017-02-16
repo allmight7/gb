@@ -1,0 +1,208 @@
+package com.itwill.giga_box.movie;
+
+import java.sql.Date;
+import java.util.List;
+
+import com.itwill.giga_box.movie_schedule.Movie_schedule;
+import com.itwill.giga_box.multiplex.Multiplex;
+import com.itwill.giga_box.stillcut.Stillcut;
+
+
+public class Movie {
+	private int movie_no; //영화 번호
+	private String movie_name; //영화 제목
+	private Date movie_date; //영화 개봉일
+	private int movie_time; //영화 상영시간
+	private double movie_rate; //평점 합계
+	private int movie_people; //평점 참여 인원
+	private String movie_director; //영화 감독
+	private String movie_actor; //영화 출연진
+	private String movie_summary; //영화 줄거리
+	private String movie_trailer; //영화 트레일러
+	
+	private List<Multiplex> multiplex;  //영화가 가진 멀티플렉스 객체 
+	private List<Movie_schedule> movie_schedule;   //영화가 가진 영화스케줄 객체 
+	
+	private String thumbnail;
+	private List<Stillcut> stillcutList;
+	
+	
+	public Movie() {
+	}
+	
+	public Movie(int movie_no, String movie_name, Date movie_date, int movie_time, double movie_rate, int movie_people,
+			String movie_director, String movie_actor, String movie_summary, String movie_trailer) {
+		super();
+		this.movie_no = movie_no;
+		this.movie_name = movie_name;
+		this.movie_date = movie_date;
+		this.movie_time = movie_time;
+		this.movie_rate = movie_rate;
+		this.movie_people = movie_people;
+		this.movie_director = movie_director;
+		this.movie_actor = movie_actor;
+		this.movie_summary = movie_summary;
+		this.movie_trailer = movie_trailer;
+	}
+
+	
+
+	public List<Movie_schedule> getMovie_schedule() {
+		return movie_schedule;
+	}
+
+	public void setMovie_schedule(List<Movie_schedule> movie_schedule) {
+		this.movie_schedule = movie_schedule;
+	}
+
+	public List<Multiplex> getMultiplex() {
+		return multiplex;
+	}
+
+	public void setMultiplex(List<Multiplex> multiplex) {
+		this.multiplex = multiplex;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public List<Stillcut> getStillcutList() {
+		return stillcutList;
+	}
+
+	public void setStillcutList(List<Stillcut> stillcutList) {
+		this.stillcutList = stillcutList;
+	}
+
+	public void setMovie_rate(double movie_rate) {
+		this.movie_rate = movie_rate;
+	}
+
+	public double getMovie_rate() {
+		return movie_rate;
+	}
+
+
+	public String getMovie_director() {
+		return movie_director;
+	}
+
+
+	public void setMovie_director(String movie_director) {
+		this.movie_director = movie_director;
+	}
+
+
+
+
+	public String getMovie_trailer() {
+		return movie_trailer;
+	}
+
+
+
+
+	public void setMovie_trailer(String movie_trailer) {
+		this.movie_trailer = movie_trailer;
+	}
+
+
+	public int getMovie_no() {
+		return movie_no;
+	}
+
+	public void setMovie_no(int movie_no) {
+		this.movie_no = movie_no;
+	}
+
+	public String getMovie_name() {
+		return movie_name;
+	}
+
+	public void setMovie_name(String movie_name) {
+		this.movie_name = movie_name;
+	}
+
+	public Date getMovie_date() {
+		return movie_date;
+	}
+
+	public void setMovie_date(Date movie_date) {
+		this.movie_date = movie_date;
+	}
+
+	public int getMovie_time() {
+		return movie_time;
+	}
+
+	public void setMovie_time(int movie_time) {
+		this.movie_time = movie_time;
+	}
+
+	public double getMoive_rate() {
+		return movie_rate;
+	}
+
+	public void setMoive_rate(int moive_rate) {
+		this.movie_rate = moive_rate;
+	}
+
+	public int getMovie_people() {
+		return movie_people;
+	}
+
+	public void setMovie_people(int movie_people) {
+		this.movie_people = movie_people;
+	}
+
+	public String getMoive_director() {
+		return movie_director;
+	}
+
+	public void setMoive_director(String moive_director) {
+		this.movie_director = moive_director;
+	}
+
+	public String getMovie_actor() {
+		return movie_actor;
+	}
+
+	public void setMovie_actor(String movie_actor) {
+		this.movie_actor = movie_actor;
+	}
+
+	public String getMovie_summary() {
+		return movie_summary;
+	}
+
+	public void setMovie_summary(String movie_summary) {
+		this.movie_summary = movie_summary;
+	}
+
+	public String getMovie_tailer() {
+		return movie_trailer;
+	}
+
+	public void setMovie_tailer(String movie_tailer) {
+		this.movie_trailer = movie_tailer;
+	}
+
+	@Override
+	public String toString() {
+		return "Movie [movie_no=" + movie_no + ", movie_name=" + movie_name + ", movie_date=" + movie_date
+				+ ", movie_time=" + movie_time + ", movie_rate=" + movie_rate + ", movie_people=" + movie_people
+				+ ", movie_director=" + movie_director + ", movie_actor=" + movie_actor + ", movie_summary="
+				+ movie_summary + ", movie_trailer=" + movie_trailer + ", multiplex=" + multiplex + ", movie_schedule="
+				+ movie_schedule + ", thumbnail=" + thumbnail + ", stillcutList=" + stillcutList + "]";
+	}
+
+
+	
+	
+
+}

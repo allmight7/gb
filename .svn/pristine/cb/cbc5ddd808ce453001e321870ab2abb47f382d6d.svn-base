@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.BuyMapper">
+<resultMap id="buyResultMap" type="com.itwill.giga_box.buy.Buy" >
+		<id property="buy_no" column="event_no"/>
+		<result property="buy_date" column="buy_date"/>
+		<result property="buy_count" column="buy_count"/>
+		<result property="buy_point" column="buy_point"/>
+		<result property="m_id" column="m_id"/>
+		<result property="p_no" column="p_no"/>
+</resultMap>
+
+
+<insert id="insert" parameterType="com.itwill.giga_box.buy.Buy" >
+	INSERT INTO BUY (BUY_NO,BUY_DATE,BUY_COUNT,BUY_POINT,M_ID,P_NO)
+		VALUES (#{buy_no},#{buy_date},#{buy_count},#{buy_point},#{m_id},#{p_no})
+		
+
+</insert>
+
+
+<select id="selectAll" resultType="com.itwill.giga_box.buy.Buy" parameterType="String">
+		SELECT BUY_NO,BUY_DATE,BUY_COUNT,BUY_POINT,M_ID,P_NO FROM BUY WHERE M_ID=#{m_id}
+</select>
+
+<select id="findBuyByNo" parameterType="int"  resultType="com.itwill.giga_box.buy.Buy">
+		SELECT b.BUY_NO,b.BUY_DATE,b.BUY_COUNT,b.BUY_POINT,b.M_ID,p.P_NO,p.P_NAME,p.P_PRICE,
+		((p.P_PRICE*b.BUY_COUNT)-b.BUY_POINT) BUY_TOT
+		FROM BUY b,PRODUCT p WHERE b.M_ID= 'mo'AND p.P_NO = b.P_NO;
+</select>
+
+</mapper>
+

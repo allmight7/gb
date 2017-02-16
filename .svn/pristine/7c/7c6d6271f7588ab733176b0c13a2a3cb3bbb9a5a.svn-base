@@ -1,0 +1,44 @@
+package com.itwill.giga_box.movie;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.itwill.giga_box.mapper.MovieMapper;
+
+@Repository
+public class MovieDaoImpl implements MovieDao {
+	
+	@Autowired
+	public MovieMapper movieMapper;
+	
+	/* (non-Javadoc)
+	 * @see com.itwill.giga_box.movie.MovieDao#selectByNo(int)
+	 */
+	@Override
+	public Movie selectByNo(int no){
+		return movieMapper.selectByNo(no);
+	}
+	
+	@Override
+	public List<Movie> selectAll() {
+		return movieMapper.selectAll();
+	}
+
+	@Override
+	public int insert(Movie movie) {
+		return movieMapper.insert(movie);
+	}
+
+	@Override
+	public int update(Movie movie) {
+		return movieMapper.update(movie);
+	}
+
+	@Override
+	public int deleteByNo(int no) {
+		return movieMapper.deleteByNo(no);
+	}
+
+}

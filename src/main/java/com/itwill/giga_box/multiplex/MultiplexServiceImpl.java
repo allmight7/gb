@@ -1,0 +1,44 @@
+package com.itwill.giga_box.multiplex;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+@Service
+public class MultiplexServiceImpl implements MultiplexService {
+
+	@Autowired
+	private MultiplexDao multiplexDao;
+	
+	@Override
+	public int insertMp(Multiplex multiplex) {
+		return multiplexDao.insertMp(multiplex);
+	}
+
+	@Override
+	public int updateMp(Multiplex multiplex) {
+		return multiplexDao.updateMp(multiplex);
+	}
+
+	@Override
+	public int deleteMp(int mp_no) {
+		return multiplexDao.deleteMp(mp_no);
+	}
+
+	@Override
+	public Multiplex selectByMpNo(int mp_no) {
+		return multiplexDao.selectByMpNo(mp_no);
+	}
+
+	@Override
+	public ArrayList<Multiplex> selectAllMp() {
+		return multiplexDao.selectAllMp();
+	}
+
+	@Override
+	public Multiplex selectMPByMovieNo(int movie_no) {
+		return multiplexDao.selectMPByMovieNo(movie_no);
+	}
+
+	
+}

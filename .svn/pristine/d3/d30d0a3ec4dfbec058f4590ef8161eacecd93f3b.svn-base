@@ -1,0 +1,25 @@
+package com.itwill.giga_box.buy;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BuyServiceImpl implements BuyService {
+
+	@Autowired
+	private BuyDao buyDaoImpl;
+
+	@Override
+	public int insert(Buy buy) {
+		return buyDaoImpl.insert(buy);
+	}
+
+	@Override
+	public List<Buy> selectAll(String m_id) {
+		return buyDaoImpl.selectAll(m_id);
+	}
+	
+	
+}

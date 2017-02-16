@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+    
+    <!-- Uncomment and add your base-package here:
+         <context:component-scan
+            base-package="org.springframework.samples.service"/>  -->
+
+	<!-- DataSource -->
+	<context:property-placeholder
+			location="classpath:db/jdbc.properties"
+			system-properties-mode="OVERRIDE" />
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+		p:username="${jdbc.username}" p:password="${jdbc.password}" />
+	
+	<!-- Transaction -->		
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+		
+	<!-- MyBatis Mapper & business logic annotation -->
+	<context:component-scan base-package="com.itwill.giga_box.member" />
+	<context:component-scan base-package="com.itwill.giga_box.movie" />
+	<context:component-scan base-package="com.itwill.giga_box.movie_schedule" />
+	<context:component-scan base-package="com.itwill.giga_box.stillcut" />
+	<context:component-scan base-package="com.itwill.giga_box.product" />
+	<context:component-scan base-package="com.itwill.giga_box.book" />
+	<context:component-scan base-package="com.itwill.giga_box.buy" />
+	<context:component-scan base-package="com.itwill.giga_box.event" />
+	<context:component-scan base-package="com.itwill.giga_box.multiplex" />
+	<context:component-scan base-package="com.itwill.giga_box.rating" />
+	<context:component-scan base-package="com.itwill.giga_box.review" />
+	<context:component-scan base-package="com.itwill.giga_box.seen_movie" />
+	<context:component-scan base-package="com.itwill.giga_box.wish_movie" />
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="transactionFactory">
+			<bean class="org.mybatis.spring.transaction.SpringManagedTransactionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.MemberMapper" />
+	</bean>
+	<bean id="movieMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.MovieMapper"></property>
+	</bean>
+	<bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.BookMapper"></property>
+	</bean>
+	
+	<bean id="buyMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.BuyMapper"></property>
+	</bean>
+	
+	<bean id="eventMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.EventMapper"></property>
+	</bean>
+
+	
+	<bean id="movieScheduleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.MovieScheduleMapper"></property>
+	</bean>
+	
+	<bean id="multiplexMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.MultiplexMapper"></property>
+	</bean>
+	
+	<bean id="productMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.ProductMapper"></property>
+	</bean>
+	
+	<bean id="ratingMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.RatingMapper"></property>
+	</bean>
+	
+	<bean id="reviewMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.ReviewMapper"></property>
+	</bean>
+	
+	<bean id="seen_movieMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.Seen_movieMapper"></property>
+	</bean>
+	
+	<bean id="stillcutMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.StillcutMapper"></property>
+	</bean>
+	
+	<bean id="wish_movieMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+		<property name="mapperInterface" value="com.itwill.giga_box.mapper.Wish_movieMapper"></property>
+	</bean>
+		
+</beans>

@@ -1,0 +1,186 @@
+package com.itwill.giga_box.buy;
+
+import java.sql.Date;
+import java.util.List;
+
+import com.itwill.giga_box.member.Member;
+import com.itwill.giga_box.product.Product;
+
+public class Buy {
+	private int buy_no; //구매번호
+	private Date buy_date; //구매한 날짜
+	private int buy_count; //구매 수량
+	private int buy_point; //회원이 쓴 포인트
+	private String m_id; //회원 아이디
+	private int p_no; //상품 번호
+	private int buy_tot; //상품합계
+	private String buy_user_name;  //사용자 이름
+	private String buy_user_email;  //사용자 이메일
+	
+	private Member member;
+	
+	private List<Product> productList;
+	private Product product;  //구매 리스트를 위한 buy, product 테이블 조인하려면 이렇게 변수선언해야함
+	
+
+	
+	public Buy() {
+		// TODO Auto-generated constructor stub
+	}
+	
+
+
+	public Buy(int buy_no, Date buy_date, int buy_count, int buy_point, String m_id, int p_no, int buy_tot,
+			String buy_user_name, String buy_user_email, Member member, List<Product> productList) {
+		super();
+		this.buy_no = buy_no;
+		this.buy_date = buy_date;
+		this.buy_count = buy_count;
+		this.buy_point = buy_point;
+		this.m_id = m_id;
+		this.p_no = p_no;
+		this.buy_tot = buy_tot;
+		this.buy_user_name = buy_user_name;
+		this.buy_user_email = buy_user_email;
+		this.member = member;
+		this.productList = productList;
+	}
+
+
+
+
+
+	public int getBuy_no() {
+		return buy_no;
+	}
+
+	public void setBuy_no(int buy_no) {
+		this.buy_no = buy_no;
+	}
+
+	public Date getBuy_date() {
+		return buy_date;
+	}
+
+	public void setBuy_date(Date buy_date) {
+		this.buy_date = buy_date;
+	}
+
+	public int getBuy_count() {
+		return buy_count;
+	}
+
+	public void setBuy_count(int buy_count) {
+		this.buy_count = buy_count;
+	}
+
+	public int getBuy_point() {
+		return buy_point;
+	}
+
+	public void setBuy_point(int buy_point) {
+		this.buy_point = buy_point;
+	}
+
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+
+	public int getP_no() {
+		return p_no;
+	}
+
+	public void setP_no(int p_no) {
+		this.p_no = p_no;
+	}
+
+
+
+
+
+	public int getBuy_tot() {
+		return buy_tot;
+	}
+
+
+
+	public void setBuy_tot(int buy_tot) {
+		this.buy_tot = buy_tot;
+	}
+
+
+
+	public String getBuy_user_name() {
+		return buy_user_name;
+	}
+
+
+
+	public void setBuy_user_name(String buy_user_name) {
+		this.buy_user_name = buy_user_name;
+	}
+
+
+
+	public String getBuy_user_email() {
+		return buy_user_email;
+	}
+
+
+
+	public void setBuy_user_email(String buy_user_email) {
+		this.buy_user_email = buy_user_email;
+	}
+
+
+
+	public Member getMember() {
+		return member;
+	}
+
+
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+
+
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Buy [buy_no=" + buy_no + ", buy_date=" + buy_date + ", buy_count=" + buy_count + ", buy_point="
+				+ buy_point + ", m_id=" + m_id + ", p_no=" + p_no + ", buy_tot=" + buy_tot + ", buy_user_name="
+				+ buy_user_name + ", buy_user_email=" + buy_user_email + ", member=" + member + ", productList="
+				+ productList + "]";
+	}
+
+
+
+	
+
+
+	
+	
+
+
+
+	
+	
+	
+}

@@ -1,0 +1,412 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <title>${PAGE_TITLE}</title>
+
+        <!-- Bootstrap -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- custom css -->
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
+        <!-- font awesome for icons -->
+        <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- flex slider css -->
+        <link href="css/flexslider.css" rel="stylesheet" type="text/css" media="screen">
+         <link href="css/owl.transitions.css" rel="stylesheet" type="text/css" media="screen">
+        <!-- animated css  -->
+        <link href="css/animate.css" rel="stylesheet" type="text/css" media="screen">
+        <!--owl carousel css-->
+        <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="css/owl.theme.css" rel="stylesheet" type="text/css" media="screen">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+		<!--scripts and plugins -->
+        <!--must need plugin jquery-->
+        <script src="js/jquery.min.js"></script>        
+        <!--bootstrap js plugin-->
+        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!--easing plugin for smooth scroll-->
+        <script src="js/jquery.easing.1.3.min.js" type="text/javascript"></script>
+        <!--easing plugin for nice scroll scroll-->
+
+        <!--sticky header-->
+        <script type="text/javascript" src="js/jquery.sticky.js"></script>
+        <!--flex slider plugin-->
+        <script src="js/jquery.flexslider-min.js" type="text/javascript"></script>
+        <!--parallax background plugin-->
+        <script src="js/jquery.stellar.min.js" type="text/javascript"></script>
+        <!--very easy to use portfolio filter plugin -->
+        <script src="js/jquery.mixitup.min.js" type="text/javascript"></script>
+        <!--digit countdown plugin-->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+        <!--digit countdown plugin-->
+        <script src="js/jquery.counterup.min.js" type="text/javascript"></script>
+        <!--on scroll animation-->
+        <script src="js/wow.min.js" type="text/javascript"></script> 
+        <!--owl carousel slider-->
+        <script src="js/owl.carousel.min.js" type="text/javascript"></script>
+        <!--customizable plugin edit according to your needs-->
+        <script src="js/custom.js" type="text/javascript"></script>
+		
+
+    </head>
+    <body>
+        <div class="top-bar-wrap hidden-xs">
+            <div class="container">
+                <div class="top-bar">
+                    <div class="pull-left">
+                        <a href="#">${m_id}</a>
+                    </div>
+                    <div class="pull-right">
+                        <ul class="list-inline social-1">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        </ul>
+                        
+                    </div>
+                </div><!--top-bar-->
+            </div>
+        </div><!--top bar wrap end-->
+        
+        <!--navigation -->
+        <!-- Static navbar -->
+        <div class="navbar navbar-default navbar-static-top sticky" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index">GIGABOX</a>
+                </div><!--.navbar header-->
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="movie_list">영화</a></li>
+                        <li><a href="book_list">예매</a></li>
+                        <li><a href="product_list?p_type=1">스토어</a></li>
+                        <li><a href="event_list">이벤트</a></li>
+                        <c:if test="${empty m_id}">
+                        <li><a href="#" id = "login">로그인</a></li>
+                        </c:if>
+                        <c:if test="${not empty m_id}">
+                        <li><a href="logout" id = "logout">로그아웃</a></li>
+                        </c:if>
+                      
+		  			
+                        
+                        <li class="dropdown " data-animate="animated fadeInUp" style="z-index:500;">
+                            <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="fa fa-search"></i></a>
+                            <ul class="dropdown-menu animated fadeInUp">
+                                <li id="dropdownForm">
+                                    <div class="dropdown-form">
+                                        <form class=" form-inline">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="search...">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-theme-bg" type="button">Go!</button>
+                                                </span>
+                                            </div><!--input group-->
+                                        </form><!--form-->
+                                    </div><!--.dropdown form-->
+                                </li><!--.drop form search-->
+                            </ul><!--.drop menu-->
+                            
+                        </li><!--nav search form-->
+                    
+                    </ul><!--navbar-right for navbar-left replace class with navbar-left-->
+                    
+                </div><!--/.nav-collapse -->
+            </div><!--.container-->
+            
+        </div><!--.navbar-default-->
+   
+
+<!-- 로그인 폼 시작 -->
+<!--<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">로그인</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group" >
+            <label for="recipient-name" class="control-label">아이디:</label>
+            <input type="text" class="form-control" id="m_id">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">비밀번호:</label>
+            <input type="text" class="form-control" id="m_pw">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">로그인</button>
+        <a href = "member_join" ><button type="button" class="btn btn-primary btn-info" >회원가입</button></a>
+        <button type="button" class="btn btn-primary btn-warning">아이디&비번 찾기</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+   		<script type="text/javascript">
+   		$('#loginModal').on('show.bs.modal')
+   		
+   		</script> -->
+<!-- 로그인 폼 관련 끝 -->
+  <div class="wrapper">
+    <form class="form-signin" id="f" action="login_action" method="post">       
+      <h2 class="form-signin-heading">Please login</h2>
+      <input type="text" class="form-control" name="m_id" placeholder="Id" required="" autofocus="" />
+      <input type="password" class="form-control" name="m_pw" placeholder="Password" required=""/>      
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    </form>
+  </div>
+  		<!-- <div class="wrapper">
+	     <div class="login_form" >
+	    <form id="f" action="login_action" method="post">
+	    아이디 : <input type="text" name="m_id" id="m_id">
+	    비밀번호 : <input type="password" name="m_pw" id="m_pw">
+	    <input type="submit" value="로그인" >
+	    </form>
+	    </div> 
+	    </div> -->
+			         
+<script>
+
+//로그인 창 띄우기
+$('#login').click(function() {
+	if ($('.wrapper').css('display')=='none') {
+		$('.wrapper').toggle();
+	} else {
+		$('.wrapper').hide();
+
+	}
+	
+});
+
+
+</script>
+       	<style>
+       	.wrapper{
+	       	z-index: 100;
+		    border: 1px solid gray;
+		    position: absolute;
+		    display: none;
+		    margin: 10,10,10,10;
+		    opacity: 10;
+		    /* left: 40em; */
+		    /* float: right; */
+		    left: calc(50% + 300px);
+       	}
+       	@media all and (max-width: 1200px) {
+	       	.wrapper{
+			    left: calc(50% + 200px);
+	       	}
+       	}
+       	@media all and (max-width: 991px) {
+	       	.wrapper{
+	       		z-index: 100;
+			    left: calc(50% + 100px);
+	       	}
+       	}
+       	@media all and (max-width: 767px) {
+	       	.wrapper{
+			    z-index:1000;
+			    left:40px;
+	       	}
+       	}
+       	@import "bourbon";
+
+body {
+	background: #eee !important;	
+}
+
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+@media all and (max-width:415px) {
+	.form-signin {
+	    max-width: 260px;
+	    padding: 15px 15px 25px;
+	    margin: 0 auto;
+	    background-color: #fff;
+    }
+    .form-signin-heading {
+    	font-size: 2em;
+    }
+    
+}
+
+	.form-control {
+	  font-size: 16px;
+	  padding: 10px;
+		@include box-sizing(border-box);
+
+		&:focus {
+		  z-index: 2;
+		}
+	
+
+       	
+       	</style>
+        <script>
+        
+        
+        </script>	
+        
+      	<!-- content -->
+      	<jsp:include page = "${CONTENT_PAGE}"/>
+      	<jsp:include page = "${CONTENT_PAGE2}"/>
+      	
+      	<!-- content end -->
+
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 margin30">
+                        <div class="footer-col">
+                            <h3 class="heading">About us</h3>
+                            <p>
+                                Duis nisl est, porta eu augue et, tempor congue mauris. Praesent a ligula in urna consectetur rhoncus.
+                            </p>
+                            <ul class="address-info list-unstyled">
+                                <li><i class="fa fa-home"></i> Vaishali nagar, Jaipur, 302012</li>  
+                                <li><i class="fa fa-phone"></i> +91 123456789</li>  
+                                <li><i class="fa fa-envelope"></i> <a href="#">support@designmylife.com</a></li> 
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 margin30">
+                        <div class="footer-col">
+                            <h3 class="heading">Recent Post</h3>
+                            <ul class="list-unstyled popular-post">
+                                <li>
+                                    <div class="popular-img">
+                                        <a href="#"> <img src="images/work-6.png" class="img-responsive" alt=""></a>
+                                    </div>
+                                    <div class="popular-desc">
+                                        <h5> <a href="#">blog post image</a></h5>
+                                        <h6>31st july 2014</h6>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="popular-img">
+                                        <a href="#"> <img src="images/work-2.png" class="img-responsive" alt=""></a>
+                                    </div>
+                                    <div class="popular-desc">
+                                        <h5> <a href="#">blog post image</a></h5>
+                                        <h6>31st july 2014</h6>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="popular-img">
+                                        <a href="#"> <img src="images/work-5.png" class="img-responsive" alt=""></a>
+                                    </div>
+                                    <div class="popular-desc">
+                                        <h5> <a href="#">blog post image</a></h5>
+                                        <h6>31st july 2014</h6>
+                                    </div>
+                                </li>
+                            </ul><!--latest post-->
+                        </div>
+                    </div><!--footer col-->
+                    <div class="col-md-3 margin30">
+                        <div class="footer-col">
+                            <h3 class="heading">Elsewhere</h3>
+                            <ul class="list-inline social-1">
+                                <li><a href="#"><i class="fa fa-facebook" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus" data-toggle="tooltip" title="" data-original-title="Google pluse" data-placement="top"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest" data-toggle="tooltip" title="" data-original-title="Pinterest" data-placement="top"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble" data-toggle="tooltip" title="" data-original-title="Dribbble" data-placement="top"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="divide30"></div>
+                        <div class="footer-col">
+                            <h3 class="heading">Newsletter</h3>
+                            <p>
+                                Duis nisl est, porta eu augue et, tempor congue mauris.
+                            </p>
+                            <form class="newsletter-form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <label class="sr-only" for="subscribe-email">Email address</label>
+                                            <input type="email" class="form-control" id="subscribe-email" placeholder="Enter your email">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-theme-bg btn-lg">OK</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!--footer col-->
+                    <div class="col-md-3 margin30">
+                        <div class="footer-col">
+                            <h3 class="heading">Recent Work</h3>
+                            <div class=" footer-work">
+                                <a href="#">
+                                    <img src="images/work-1.png" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-2.png" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-10.jpg" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-4.jpg" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-5.png" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-6.png" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-7.png" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-8.png" class="img-responsive" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="images/work-9.png" class="img-responsive" alt="">
+                                </a>
+                            </div>
+                        </div><!--footer col-->
+                    </div>
+                </div><!--row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="footer-btm">
+                            <span>&copy; Copyright 2014. Theme by Design_mylife</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer><!--footer end-->
+        
+    </body>
+ 	
+</html>

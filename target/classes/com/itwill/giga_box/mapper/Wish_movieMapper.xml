@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.Wish_movieMapper">
+
+	<resultMap id="wish_movieResult" type="com.itwill.giga_box.wish_movie.Wish_movie" >
+		<id property="wish_no" column="wish_no"/>
+		<result property="m_id" column="m_id"/>
+		<result property="movie_no" column="movie_no"/>
+	</resultMap>
+	
+	<insert id="insertWM" parameterType="com.itwill.giga_box.wish_movie.Wish_movie">
+		INSERT INTO WISH_MOVIE (WISH_NO, M_ID,MOVIE_NO)
+		VALUES (#{wish_no},#{m_id},#{movie_no})
+	</insert>
+	
+	
+	<!-- 회원아이디와 영화제목으로 검색했을때 찜한 영화목록중에서 반환 (스틸컷에서 쓸수있으면 쓰기) -->
+	<select id="selectByMovieNameAndMemberId" parameterType="java.util.Map" >
+		select w.M_ID, w.MOVIE_NO,a.MOVIE_NAME, m.M_NO, m.M_ID, m.M_NAME, m.M_IMG, m.M_GRADE, m.M_POINT
+		from WISH_MOVIE w
+		join member m
+		on w.M_ID = m.M_ID
+		join movie a
+		on a.MOVIE_NAME = #{movie_name}
+		and m.M_ID = #{m_id}
+	</select>
+	
+	<select id="selectAllWM" resultType="com.itwill.giga_box.wish_movie.Wish_movie">
+		SELECT * FROM WISH_MOVIE WHERE M_ID = #{m_id}
+	</select>
+	
+	<delete id="deleteByWishNo">
+		DELETE FROM WISH_MOVIE WHERE WISH_NO = #{wish_no}
+	</delete>
+	
+	<delete id="deleteAllWishes" parameterType="java.lang.String">
+		DELETE FROM WISH_MOVIE WHERE M_ID = #{m_id}
+	</delete>
+	
+
+</mapper>
+

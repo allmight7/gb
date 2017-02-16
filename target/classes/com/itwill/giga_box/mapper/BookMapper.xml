@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.BookMapper">
+	<resultMap id="bookResult" type="com.itwill.giga_box.book.Book" >
+		<id property="book_no" column="book_no"/>
+		<result property="book_date" column="book_date"/>
+		<result property="book_seat_count" column="book_seat_count"/>
+		<result property="book_seat_no" column="book_seat_no"/>
+		<result property="ms_no" column="ms_no"/>
+		<result property="m_id" column="m_id"/>
+			
+	</resultMap>
+	<insert id="insert" parameterType="com.itwill.giga_box.book.Book">
+		INSERT INTO BOOK (BOOK_NO, BOOK_DATE, BOOK_SEAT_COUNT, BOOK_SEAT_NO, M_ID, MS_NO) 
+		VALUES (#{book_no},#{book_date},#{book_seat_count},#{book_seat_no},#{m_id},#{ms_no})
+	</insert>
+	
+	<!-- 해당 회원의 예매 관련 총 출력 날짜 순 -->
+	<select id="selectByMemberId" resultType="com.itwill.giga_box.book.Book" parameterType="java.lang.String">
+		select * from (select * from book ORDER BY BOOK_DATE ASC)B
+		left outer join MOVIE_SCHEDULE MS
+		on B.MS_NO=MS.MS_NO
+		left outer join MULTIPLEX MP
+		on MS.MP_NO=MP.MP_NO
+		WHERE M_ID = #{m_id}
+	</select>
+	<!-- 예매 전체 삭제 및 취소  -->
+	<delete id="deleteAll" parameterType="java.lang.String">
+	DELETE FROM BOOK WHERE M_ID = #{m_id}
+	</delete>
+	
+	<!-- 예매 취소 -->
+	<delete id="delete" parameterType="hashMap">
+	DELETE FROM BOOK WHERE M_ID = #{m_id} AND BOOK_NO =#{book_no}
+	</delete>
+	
+	
+</mapper>

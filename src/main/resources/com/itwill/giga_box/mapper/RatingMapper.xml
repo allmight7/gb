@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.RatingMapper">
+	<resultMap id="ratingResult" type="com.itwill.giga_box.rating.Rating" >
+		<id property="rating_no" column="rating_no"/>
+		<result property="rating_score" column="rating_score"/>
+		<result property="m_id" column="m_id"/>
+		<result property="movie_no" column="movie_no"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.itwill.giga_box.rating.Rating">
+		<selectKey keyProperty="rating_no" resultType="int" order="BEFORE">
+			SELECT RATING_SEQ.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO RATING(RATING_NO, RATING_SCORE, M_ID, MOVIE_NO)
+		VALUES(#{rating_no},#{rating_score},#{m_id},#{movie_no})
+	</insert>
+	
+	<!-- movie_no로 모든 평점 찾기 -->
+	<select id="selectByMovieNo" resultMap="ratingResult" parameterType="java.lang.Integer">
+		SELECT *
+		FROM RATING
+		WHERE MOVIE_NO = #{movie_no}
+	</select>
+	<!-- Rating객체의 m_id, movie_no로 찾기 동적쿼리 -->
+	<select id="selectRate" resultMap="ratingResult" parameterType="com.itwill.giga_box.rating.Rating">
+		SELECT *
+		FROM RATING
+		<trim prefix="WHERE" prefixOverrides="AND|OR ">
+			<if test="m_id!=null">
+				M_ID = #{m_id}
+			</if>
+			<if test="movie_no>0">
+				AND MOVIE_NO = #{movie_no}
+			</if>
+		</trim>		
+	</select>
+</mapper>
+

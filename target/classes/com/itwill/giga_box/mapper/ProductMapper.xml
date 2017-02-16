@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.ProductMapper">
+	
+<resultMap id="productResultMap" type="com.itwill.giga_box.product.Product" >
+		<id property="p_no" column="p_no"/>
+		<result property="p_name" column="p_name"/>
+		<result property="p_price" column="p_price"/>
+		<result property="p_desc" column="p_desc"/>
+		<result property="p_url" column="p_url"/>
+		<result property="p_type" column="p_type"/>
+</resultMap>
+
+<insert id="insert" parameterType="com.itwill.giga_box.product.Product">
+		INSERT INTO PRODUCT (P_NO,P_NAME,P_PRICE,P_DESC,P_URL,P_TYPE)
+		VALUES (#{p_no},#{p_name},#{p_price},#{p_desc},#{p_url},#{p_type})
+
+</insert>
+
+
+<select id="selectAll" resultMap="productResultMap">
+		SELECT * FROM PRODUCT
+</select>
+
+<select id="findProductByNo" parameterType="int" resultType="com.itwill.giga_box.product.Product">
+		SELECT * FROM PRODUCT
+		WHERE P_NO = #{p_no}
+</select>
+<select id="findProductByType" parameterType="int" resultMap="productResultMap">
+		SELECT * FROM PRODUCT
+		WHERE P_TYPE = #{p_type}
+</select>
+
+  <delete id="delete" parameterType="int">
+    	DELETE FROM
+    	PRODUCT WHERE P_NO=#{p_no}
+    </delete>
+</mapper>

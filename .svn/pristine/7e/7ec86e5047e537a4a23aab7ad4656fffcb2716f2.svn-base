@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+#item-img-overlay span {
+	width:280px;
+	height:180px;
+}
+#img-responsive {
+	width:280px !important;
+	heihgt:180px !important;
+}
+#item-img-wrap {
+	width:280px !important;
+	height:180px !important;
+}
+</style>
+<script type="text/javascript">
+$(function() {
+	var address = location.href.split("p_type=")[1];
+	$("#active"+address).addClass("active");
+});
+
+function imgFind(p_type) {
+	location.href='product_list?p_type='+p_type;
+	
+}
+
+</script>
+<div class="container">
+            <div class="row" >
+            
+                <div class="col-md-12">
+                    <ul class="portfolio-filters list-inline ">
+                        <li id="active1" class="filter" data-filter="popcorn"><a href="javascript:imgFind(1)" id="popcorn">팝콘</a></li>
+                        <li id="active2" class="filter" data-filter="beverage"><a href="javascript:imgFind(2)" id="berverage">음료</a></li>
+                        <li id="active3" class="filter" data-filter="combo"><a href="javascript:imgFind(3)">콤보</a></li>
+                        <li id="active4" class="filter" data-filter="movieTicket"><a href="javascript:imgFind(4)">영화관람권</a></li>
+                    </ul><!--.portfolio-filter nav-->
+
+						<!-- for each 동적으로뿌림 -->
+                    <div id="popcorn" class="row">
+                    <c:if test=""></c:if>
+                     <c:forEach var="product" items="${proList}">
+                        <div class="col-sm-4 margin20 mix design  mix_all" style="display: inline-block;  opacity: 1;">
+                           <a href="portfolio-single.html">
+                                    <div class="item-img-wrap" id="item-img-wrap">
+                                        <img src="images/p_images/${product.p_url}" class="img-responsive" id="img-responsive" alt="popcorn">
+                                        <div class="item-img-overlay" id="item-img-overlay">
+                                            <span></span>
+                                        </div>
+                                    </div>                       
+                                </a><!--work link-->
+                                <div class="work-desc">
+                                    <i class="fa fa-twitter"></i>
+                                    <h5><a href="#">${product.p_name}</a></h5>
+                                </div><!--work desc-->
+                        	</div><!--work col-->
+                          </c:forEach>
+                        </div><!--work col-->
+                         <!-- foreach end -->
+                                     
+                                     
+                    
+                         <!-- foreach end -->
+                                     
+                      

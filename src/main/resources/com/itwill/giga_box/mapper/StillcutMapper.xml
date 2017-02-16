@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.StillcutMapper">
+	<resultMap id="StillcutResult" type="com.itwill.giga_box.stillcut.Stillcut" >
+		<id property="s_no" column="s_no"/>
+		<result property="s_thumb" column="s_thumb"/>
+		<result property="s_image" column="s_image"/>
+		<result property="movie_no" column="movie_no"/>
+	</resultMap>
+	
+	<insert id="insertStillcut" parameterType="com.itwill.giga_box.stillcut.Stillcut">
+		INSERT INTO STILLCUT (S_NO,S_THUMB,S_IMAGE,MOVIE_NO)
+		VALUES (#{s_no},#{s_thumb},#{s_image},#{movie_no})
+	</insert>
+	
+	<select id="selectByStillcutNo" resultType="com.itwill.giga_box.stillcut.Stillcut">
+		SELECT * FROM STILLCUT WHERE S_NO = #{s_no}
+	</select>
+	
+	<select id="selectAllStillcut" resultType="com.itwill.giga_box.stillcut.Stillcut">
+		SELECT * FROM STILLCUT
+	</select>
+</mapper>
+

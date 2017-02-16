@@ -1,0 +1,102 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<div class="container-fluid">
+   <div class="row">   
+       <div class="col-md-12 margin30">
+           <div class="row">                       
+               <div class="col-md-12"><!-- 영화상세 -->                       
+                   <div class="row">
+                   	<div class="col-md-4">
+                   		<img src="${movie.stillcutList[0].s_image}" class="img-responsive movie_thumb">	
+                   	</div>
+                   	<div class="col-md-8">
+                   		<br/>
+                   		<h2>${movie.movie_name}</h2>
+                   		<hr>
+                   		<p><strong>개봉일 : </strong>${movie.movie_date}</p>
+                   		<p><strong>상영시간 : </strong>${movie.movie_time} 분</p>
+                   		<p><strong>감독 : </strong>${movie.movie_director}</p>
+                   		<p><strong>배우 : </strong>${movie.movie_actor}</p>
+						<br/>
+                    	<hr>
+						<button type="button" class="btn btn-primary btn-lg pull-right"><strong>예매하기</strong></button>
+						<button type="button" class="btn btn-default btn-lg pull-right">보고싶어</button>
+						<button type="button" class="btn btn-default btn-lg pull-right">본영화</button>
+                   	</div>
+
+                   </div>
+                   <hr>
+                   <div class="row"><!-- 줄거리 -->
+                   	<div class="col-md-12">
+                   		<h3>줄거리</h3>
+                   		<p>
+                   		${movie.movie_summary}
+                   		</p>
+                   	</div>
+                   </div>
+                   <hr>
+                    <div class="row"><!-- 스틸컷 -->
+                   	<div class="col-md-12">
+                   		<p>
+                   		${movie.movie_summary}
+                   		</p>
+                   	</div>
+                   </div>
+                   <hr>
+                    <div class="row"><!-- 트레일러 -->
+                   	<div class="col-md-12">
+                   		<p>
+                   		${movie.movie_summary}
+                   		</p>
+                   	</div>
+                   </div>
+                   <hr>
+                   <h3>Comments</h3>
+                   <ul class="list-unstyled comments-list">
+                   		<c:forEach var="item" items="${reviewList}" varStatus="status">
+                       <li>
+                       <div class="row">
+                       <div class="col-md-10">
+                           <img class="avtar" src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" alt="">
+                           <div class="meta">
+                               <span><strong>${item.rating.m_id}</strong></span>, 
+                               <span class="time">${item.review_date}</span>
+                           </div>
+                           <p>${item.review_content}</p>
+                       </div>
+                       <div class="col-md-2">
+	                       <div>
+	                       hit:${item.review_hit} 
+	                       </div>
+                       </div>
+                       </div>
+                       </li>
+                       </c:forEach>
+                   </ul><!--comments list-->
+                  <div class="contact-form">
+                      <form role="form">
+                          <div class="form-group">
+                           <fieldset class="rating">
+							    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+							    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+							    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+							    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+							    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+							    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+							    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+							    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+							    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+							    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+							</fieldset>
+                              <input type="text" class="form-control" id="content">
+                          </div>
+                          <button type="submit" class="btn btn-theme-bg">Send Comment</button>
+                      </form><!--form-->
+                 </div>
+             </div>
+         </div><!--row-->
+      </div>
+   </div>
+</div>

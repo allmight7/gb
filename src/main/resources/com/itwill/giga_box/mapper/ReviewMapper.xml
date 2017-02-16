@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.giga_box.mapper.ReviewMapper">
+	<resultMap id="ReviewResult" type="com.itwill.giga_box.review.Review">
+		<id property="review_no" column="review_no"/>
+		<result property="review_content" column="review_content"/>
+		<result property="review_date" column="review_date"/>
+		<result property="review_hit" column="review_hit"/>
+		<result property="rating_no" column="rating_no"/>
+	</resultMap>
+	<resultMap id="ReviewWithRatingResult" type="com.itwill.giga_box.review.Review">
+		<id property="review_no" column="review_no"/>
+		<result property="review_content" column="review_content"/>
+		<result property="review_hit" column="review_hit"/>
+		<result property="member.m_id" column="m_id"/>
+		<association property="rating" resultMap="com.itwill.giga_box.mapper.RatingMapper.ratingResult"/>
+	</resultMap>
+	<insert id="insertReview" parameterType="com.itwill.giga_box.review.Review">
+		<selectKey keyProperty="review_no" resultType="int" order="BEFORE">
+			SELECT REVIEW_SEQ.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO REVIEW(REVIEW_NO,REVIEW_CONTENT,REVIEW_HIT,RATING_NO)
+		VALUES(
+		#{review_no},#{review_content},#{review_hit},
+		(SELECT max(RATING.RATING_NO)
+		FROM RATING 
+		WHERE RATING.M_ID=#{rating.m_id})
+		)
+	</insert>
+	<select id="selectReviewByMovieNo" parameterType="java.lang.Integer" resultMap="ReviewWithRatingResult">
+		SELECT REVIEW_NO,REVIEW_CONTENT,REVIEW_DATE,REVIEW_HIT,
+			   RATING.RATING_NO AS RATING_NO,RATING.RATING_SCORE AS RATING_SCORE,
+			   RATING.M_ID AS M_ID,RATING.MOVIE_NO AS MOVIE_NO
+		FROM REVIEW
+		LEFT OUTER JOIN RATING
+		ON REVIEW.RATING_NO = RATING.RATING_NO
+		WHERE MOVIE_NO = #{movie_no}
+	</select>
+	<update id="updateReview" 
+			parameterType="com.itwill.giga_box.review.Review">
+		UPDATE REVIEW
+		SET
+		REVIEW_CONTENT = #{review_content}
+		WHERE REVIEW_NO = #{review_no}
+	</update>
+	<update id="increaseReviewHit"
+			parameterType="java.lang.Integer">
+		UPDATE REVIEW
+		SET
+		REVIEW_HIT = REVIEW_HIT+1
+		WHERE REVIEW_NO = #{review_no}
+	</update>
+	<delete id="deleteReview"
+			parameterType="java.lang.Integer">
+		DELETE REVIEW
+		WHERE REVIEW_NO = #{review_no}
+	</delete>
+	
+	
+</mapper>
+

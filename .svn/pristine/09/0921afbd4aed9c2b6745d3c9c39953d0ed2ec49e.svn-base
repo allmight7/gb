@@ -1,0 +1,134 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+div.rating, label { margin: 0; padding: 0; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 	
+</style>
+
+<!-- Button trigger modal -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<c:forEach var="item" items="${movieList}" varStatus="status">
+			  <div class="col-sm-6 col-md-3 moviebox" id="movie-${item.movie_no}">
+			    <div class="thumbnail">
+			      <img src="${item.stillcutList[0].s_image}" alt="${item.movie_name}">
+			      <div class="caption">
+			      	<div class="row">
+			      		<div class="col-md-12">
+					      	<div class="rating">
+							    <input type="radio" id="movie${item.movie_no}-star10" name="rating" value="10" /><label class = "full" for="movie${item.movie_no}-star10" title="Awesome"></label>
+							    <input type="radio" id="movie${item.movie_no}-star9" name="rating" value="9" /><label class="half" for="movie${item.movie_no}-star9" title="Pretty good"></label>
+							    <input type="radio" id="movie${item.movie_no}-star8" name="rating" value="8" /><label class = "full" for="movie${item.movie_no}-star8" title="Pretty good"></label>
+							    <input type="radio" id="movie${item.movie_no}-star7" name="rating" value="7" /><label class="half" for="movie${item.movie_no}-star7" title="Meh"></label>
+							    <input type="radio" id="movie${item.movie_no}-star6" name="rating" value="6" /><label class = "full" for="movie${item.movie_no}-star6" title="Meh"></label>
+							    <input type="radio" id="movie${item.movie_no}-star5" name="rating" value="5" /><label class="half" for="movie${item.movie_no}-star5" title="Kinda bad"></label>
+							    <input type="radio" id="movie${item.movie_no}-star4" name="rating" value="4" /><label class = "full" for="movie${item.movie_no}-star4" title="Kinda bad"></label>
+							    <input type="radio" id="movie${item.movie_no}-star3" name="rating" value="3" /><label class="half" for="movie${item.movie_no}-star3" title="Meh"></label>
+							    <input type="radio" id="movie${item.movie_no}-star2" name="rating" value="2" /><label class = "full" for="movie${item.movie_no}-star2" title="Sucks big time"></label>
+							    <input type="radio" id="movie${item.movie_no}-star1" name="rating" value="1" /><label class="half" for="movie${item.movie_no}-star1" title="Sucks big time"></label>
+							</div>
+						</div>
+			      	</div>
+			      	<br/>
+		        	<h4><strong>${item.movie_name}</strong></h4>
+			        <p>
+			        <button type="button" onclick="loadMovieView(${item.movie_no})" class="btnDetail btnDetail-${item.movie_no} btn btn-block" >
+					상세정보
+					</button>
+					<button type="button" onclick="loadMovieView(${item.movie_no})" class="btnDetail btnDetail-${item.movie_no} btn btn-primary btn-block" >
+					예매하기
+					</button>
+					</p>
+			      </div>
+			    </div>
+			  </div>
+			</c:forEach>
+			<div id="movieModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	            <div class="modal-dialog modal-lg">
+	                <div class="modal-content">
+	
+	                    <div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                            <span aria-hidden="true">&times;</span>
+	                        </button>
+	                        <h4 class="modal-title" id="myModalLabel"></h4>
+	                    </div>
+	                    <div class="modal-body">
+						
+	                    </div>
+	                </div><!-- /.modal-content -->
+	            </div><!-- /.modal-dialog -->
+	        </div><!-- /.modal -->
+		</div>
+	</div>
+</div>
+<script>
+function loadMovieView(movie_no){
+	$.ajax({
+		type:"GET",
+		url:"movie_view?movie_no="+movie_no,
+		success:function(data){
+			$(".modal-body").html('');
+			$(".modal-body").html(data);
+			$("#movieModal").modal();
+		}
+	});
+}
+
+$(function(){	
+	$(":radio[name='rating']").click(function(e){
+		var movie_no=$(e.target).attr('id').split('-')[0][5];//무비번호뽑아내기
+		var rating_score=$(e.target).val();//평점뽑아내기
+		$.ajax({
+			type:"GET",
+			url:"rating_add?movie_no="+movie_no+"&rating_score="+rating_score,
+			success:function(data){
+				alert(data.result);
+			}
+		});
+	});
+});
+
+
+
+</script>	
